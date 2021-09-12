@@ -12,6 +12,7 @@ const randomGame = () => {
     const x = Math.random(); // https://www.freecodecamp.org/news/how-to-use-javascript-math-random-as-a-random-number-generator/
     if (x > 0.75) {
       clearInterval(interval); // https://stackoverflow.com/questions/16437173/stop-setinterval/16437215
+      console.log(count);
     } else {
       count++;
     }
