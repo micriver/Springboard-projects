@@ -1,5 +1,7 @@
 # directories
 js-debugging-demo/
+Modifying-the-DOM/
 
 # files
 exercises/*.html
+*.DS_Store
