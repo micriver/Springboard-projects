@@ -1,0 +1,51 @@
+<!-- 
+
+Part 1
+For this assignment you will be combining your knowledge of DOM access and events to build a todo app!
+
+As a user, you should be able to:
+[ ] Add a new todo ([ ] by submitting a form [ ] prevent default form behavior)
+[ ] Mark a todo as completed (cross out the text of the todo)
+[ ] Remove a todo
+Part 2
+[ ] Now that you have a functioning todo app, save your todos in localStorage! Make sure that when the page refreshes, the todos on the page remain there.
+
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-do List</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <h1>Hello Michael</h1>
+
+    <!-- form to input to-dos -->
+    <form action="" id="todo-form">
+      <p>
+        <label for=""
+          >New To-do:
+          <input
+            type="text"
+            placeholder="What needs to be done?"
+            name="newTodo"
+        /></label>
+      </p>
+      <input type="Submit" placeholder="Add new task" />
+    </form>
+
+    <!-- todo list -->
+    <section id="todo-list">
+      <ul>
+        <!-- <li>Fuck Bitches <button>X</button></li>
+        <li>Get Money <button>X</button></li>
+        <li>Live Fast <button>X</button></li> -->
+      </ul>
+    </section>
+  </body>
+  <script src="./todo-app.js"></script>
+</html>
