@@ -3,6 +3,7 @@ js-debugging-demo/
 Modifying-the-DOM/
 
 # files
+OLD*
 exercises/*.html
 *.DS_Store
 *.txt
