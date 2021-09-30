@@ -1,0 +1,58 @@
+Part I
+make a directory called first
+mkdir first
+
+change directory to the first folder
+cd ./first
+
+create a file called person.txt
+touch person.txt
+
+change the name of person.txt to another.txt
+mv persont.txt another.txt
+
+make a copy of the another.txt file and call it copy.txt
+cp another.txt copy.txt
+
+remove the copy.txt file
+rm copy.txt
+
+make a copy of the first folder and call it second
+cd .. && cp -R ./first/ ./second
+
+delete the second folder
+rm -rf ./second
+
+Part II
+What does the man command do? Type in man rm. How do you scroll and get out?
+up and down arrows to scroll, "q" to get out
+
+Look at the man page for ls. What does the -l flag do? What does the -a flag do?
+The -l flag lists in long format. The -a flag includes directory entries whose names begin with a dot (.).
+
+How do you jump between words in the terminal?
+Hold down ALT on a mac and press either the left or right arrows
+
+How do you get to the end of a line in terminal?
+CTRL + E
+
+How do you move your cursor to the beginning in terminal?
+CTRL + A
+
+How do you delete a word (without pressing backspace multiple times) in terminal?
+CTRL + W
+
+What is the difference between a terminal and shell?
+The terminal is an application that gives us the ability to interact with our computer through the CLI while a shell is the program that actually runs inside the terminal and processes the commands, returns output.
+
+What is an absolute path?
+An absolute path is the full pathway to a directory starting from the root dir of your computer
+
+What is an relative path?
+The relative path is the pathway from where you are now to where you want to end up
+
+What is a flag? Give three examples of flags you have used.
+A flag is a command modifier that modifies the output. Examples include: ls -la, cat -e, cp -R
+
+What do the r and f flags do with the rm command?
+The -r flag attempts to remove the file hierarchy rooted in each file argument and the -f flag removes the prompts about confirmations regardless of the file's permissions.
