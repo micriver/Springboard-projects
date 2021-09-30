@@ -1,13 +1,22 @@
 /*
 
 Part Two - Implementing clicks and matches
-[ ] Clicking a card should change the background color to be the color of the class it has.
-[ ] Users should only be able to change at most two cards at a time.
-[ ] Clicking on two matching cards should be a “match” — those cards should stay face up.
-[ ] When clicking two cards that are not a match, they should stay turned over for at least 1 second before they hide the color again. You should make sure to use a setTimeout so that you can execute code after one second.
+[✓] Clicking a card should change the background color to be the color of the class it has.
+[✓] Users should only be able to change at most two cards at a time.
+[✓] Clicking on two matching cards should be a “match” — those cards should stay face up.
+[✓] When clicking two cards that are not a match, they should stay turned over for at least 1 second before they hide the color again. You should make sure to use a setTimeout so that you can execute code after one second.
+
+resources:
+you can use event.target to see which element was clicked
+https://stackoverflow.com/questions/40537142/change-background-color-using-event-handler
+https://stackoverflow.com/questions/7723188/what-properties-can-i-use-with-event-target
+console.log("The color class on this div is: ", event.target.className);
 
 */
 const gameContainer = document.getElementById("game");
+let cardArray = [];
+let card1 = "";
+let card2 = "";
 
 const COLORS = [
   "red",
@@ -66,15 +75,42 @@ function createDivsForColors(colorArray) {
   }
 }
 
+const cardMatch = (card1, card2) => {
+  let interval = setInterval(function () {
+    card1.classList.add("matched");
+    card2.classList.add("matched");
+    cardArray = [];
+    clearInterval(interval);
+  }, 1000);
+};
+
+const cardReset = (card1, card2) => {
+  let interval = setInterval(function () {
+    card1.style.backgroundColor = "white";
+    card2.style.backgroundColor = "white";
+    cardArray = [];
+    clearInterval(interval);
+  }, 1000);
+};
+
 // TODO: Implement this function!
 function handleCardClick(event) {
-  // you can use event.target to see which element was clicked
-  // https://stackoverflow.com/questions/40537142/change-background-color-using-event-handler
-  console.log("you just clicked", event.target);
-  // https://stackoverflow.com/questions/7723188/what-properties-can-i-use-with-event-target
-  console.log("The color class on this div is: ", event.target.className);
-  // this.style.backgroundColor = this.getAttribute('color');
-  // TOGGLE the color class
+  if (!event.target.classList.contains("matched") && cardArray.length < 2) {
+    if (cardArray.length === 0) {
+      card1 = this;
+      cardArray.push(1);
+      card1.style.backgroundColor = event.target.className;
+    } else if (cardArray.length === 1) {
+      card2 = this;
+      card2.style.backgroundColor = event.target.className;
+      cardArray.push(2);
+      if (card1.className === card2.className) {
+        cardMatch(card1, card2);
+      } else {
+        cardReset(card1, card2);
+      }
+    }
+  }
 }
 
 // when the DOM loads
