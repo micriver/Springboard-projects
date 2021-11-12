@@ -30,13 +30,9 @@ const double = (arr) => {
 // }
 
 const squareAndFindEvens = (numbers) => {
-  let squares = () => {
-    numbers.map((num) => num ** 2);
-  };
-  let evens = () => {
-    squares.filter((square) => {
+  numbers
+    .map((num) => num ** 2)
+    .filter((square) => {
       square % 2 === 0;
     });
-  };
-  return even;
 };
