@@ -3,6 +3,10 @@
  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
  * board fills (tie)
+ *
+ * Instructions need to be re-written so that first mention of the piece being dropped doesn't say that it goes to the bottom but that it goes to the top because that how it behaves
+ * The add check for the entire board in step 6 should be addressed later in the assignment
+ *
  */
 
 const WIDTH = 7;
@@ -10,6 +14,7 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
+let piecesInPlay = 40; // check to for tie/game over
 
 function makeBoard() {
   for (let i = 0; i < HEIGHT; i++) {
@@ -52,7 +57,17 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  return 0;
+  // check to see if a player has a piece at the BOTTOM (index of 5) of the board
+  // track the number of pieces with a counter
+  console.log(`column index = ${x}`);
+  // let i = 6;
+  // while (i > 0) {
+  //   if (board[i][x] === 1 || board[i][x] === 2) {
+  //     console.log("piece here!");
+  //   }
+  // }
+  // 5 = bottom of column
+  return 5;
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -60,7 +75,6 @@ function findSpotForCol(x) {
 function placeInTable(y, x) {
   const piece = document.createElement("div"); // create piece div
   const cell = document.getElementById(`${y}-${x}`);
-  console.log(cell);
 
   piece.classList.add("piece");
   currPlayer === 1 ? piece.classList.add("p1") : piece.classList.add("p2");
@@ -71,6 +85,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
+  alert("Game Over!");
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -78,11 +93,9 @@ function endGame(msg) {
 function handleClick(evt) {
   // get x from ID of clicked cell
   const x = +evt.target.id;
-  // console.log(`x is ${x}`);
 
   // get next spot in column (if none, ignore click)
   const y = findSpotForCol(x);
-  // console.log(`y is ${y}`);
   if (y === null) {
     return;
   }
@@ -91,6 +104,7 @@ function handleClick(evt) {
   board[y][x] = currPlayer;
   placeInTable(y, x);
 
+  piecesInPlay += 1;
   // check for win
   if (checkForWin()) {
     return endGame(`Player ${currPlayer} won!`);
@@ -98,9 +112,13 @@ function handleClick(evt) {
 
   // check for tie
   // TODO: check if all cells in board are filled; if so call, call endGame
-  if (board[y][x].every((val) => val > 0)) {
-    // endGame(msg)
+  function checkForFullBoard() {
+    if (piecesInPlay === 42) {
+      endGame();
+    }
   }
+
+  checkForFullBoard();
 
   // switch players
   currPlayer === 1 ? (currPlayer = 2) : (currPlayer = 1);
