@@ -14,13 +14,13 @@ const HEIGHT = 6;
 
 let currPlayer = 1; // active player: 1 or 2
 const board = []; // array of rows, each row is array of cells  (board[y][x])
-let piecesInPlay = 40; // check to for tie/game over
+let piecesInPlay = 0; // check to for tie/game over
 
 function makeBoard() {
   for (let i = 0; i < HEIGHT; i++) {
     board[i] = [];
     for (let x = 0; x < WIDTH; x++) {
-      board[i][x] = [];
+      board[i][x] = 0;
     }
   }
 }
@@ -57,17 +57,28 @@ function makeHtmlBoard() {
 
 function findSpotForCol(x) {
   // TODO: write the real version of this, rather than always returning 0
-  // check to see if a player has a piece at the BOTTOM (index of 5) of the board
-  // track the number of pieces with a counter
-  console.log(`column index = ${x}`);
-  // let i = 6;
-  // while (i > 0) {
-  //   if (board[i][x] === 1 || board[i][x] === 2) {
-  //     console.log("piece here!");
-  //   }
-  // }
-  // 5 = bottom of column
-  return 5;
+  let column = x;
+  if (board[5][column] === 0) {
+    return 5;
+  }
+  if (board[4][column] === 0) {
+    return 4;
+  }
+  if (board[3][column] === 0) {
+    return 3;
+  }
+  if (board[2][column] === 0) {
+    return 2;
+  }
+  if (board[1][column] === 0) {
+    return 1;
+  }
+  if (board[0][column] === 0) {
+    return 0;
+  } else {
+    // console.log(null);
+    return null;
+  }
 }
 
 /** placeInTable: update DOM to place piece into HTML table of board */
@@ -85,7 +96,7 @@ function placeInTable(y, x) {
 
 function endGame(msg) {
   // TODO: pop up alert message
-  alert("Game Over!");
+  alert(msg);
 }
 
 /** handleClick: handle click of column top to play piece */
@@ -114,7 +125,7 @@ function handleClick(evt) {
   // TODO: check if all cells in board are filled; if so call, call endGame
   function checkForFullBoard() {
     if (piecesInPlay === 42) {
-      endGame();
+      endGame("The game is tied!");
     }
   }
 
