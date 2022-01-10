@@ -40,6 +40,7 @@ class Game {
 
     board.append(top);
 
+<<<<<<< HEAD
     // make main part of board
     for (let y = 0; y < this.HEIGHT; y++) {
       const row = document.createElement("tr");
@@ -69,6 +70,20 @@ class Game {
 
     const spot = document.getElementById(`${y}-${x}`);
     spot.append(piece);
+=======
+function makeHtmlBoard() {
+  const board = document.getElementById("board");
+
+  // make column tops (clickable area for adding a piece to that column)
+  const top = document.createElement("tr");
+  top.setAttribute("id", "column-top");
+  top.addEventListener("click", handleClick);
+
+  for (let x = 0; x < WIDTH; x++) {
+    const headCell = document.createElement("td");
+    headCell.setAttribute("id", x);
+    top.append(headCell);
+>>>>>>> 24f33cdd4036c5c95f726ee14ea2e9c198750e3f
   }
   endGame(msg) {
     alert(msg);
@@ -87,6 +102,7 @@ class Game {
     this.board[y][x] = this.currPlayer;
     placeInTable(y, x);
 
+<<<<<<< HEAD
     // check for win
     if (checkForWin()) {
       return endGame(`Player ${this.currPlayer} won!`);
@@ -95,6 +111,16 @@ class Game {
     // check for tie
     if (board.every((row) => row.every((cell) => cell))) {
       return endGame("Tie!");
+=======
+  // make main part of board
+  for (let y = 0; y < HEIGHT; y++) {
+    const row = document.createElement("tr");
+
+    for (let x = 0; x < WIDTH; x++) {
+      const cell = document.createElement("td");
+      cell.setAttribute("id", `${y}-${x}`);
+      row.append(cell);
+>>>>>>> 24f33cdd4036c5c95f726ee14ea2e9c198750e3f
     }
 
     // switch players
@@ -158,12 +184,20 @@ class Game {
 
 new Game(6, 7); // assuming constructor takes height, width
 
+<<<<<<< HEAD
 // /** Connect Four
 //  *
 //  * Player 1 and 2 alternate turns. On each turn, a piece is dropped down a
 //  * column until a player gets four-in-a-row (horiz, vert, or diag) or until
 //  * board fills (tie)
 //  */
+=======
+function placeInTable(y, x) {
+  const piece = document.createElement("div");
+  piece.classList.add("piece");
+  piece.classList.add(`p${currPlayer}`);
+  piece.style.top = -50 * (y + 2);
+>>>>>>> 24f33cdd4036c5c95f726ee14ea2e9c198750e3f
 
 // const WIDTH = 7;
 // const HEIGHT = 6;
@@ -186,10 +220,30 @@ new Game(6, 7); // assuming constructor takes height, width
 // function makeHtmlBoard() {
 //   const board = document.getElementById("board");
 
+<<<<<<< HEAD
 //   // make column tops (clickable area for adding a piece to that column)
 //   const top = document.createElement("tr");
 //   top.setAttribute("id", "column-top");
 //   top.addEventListener("click", handleClick);
+=======
+  // place piece in board and add to HTML table
+  board[y][x] = currPlayer;
+  placeInTable(y, x);
+
+  // check for win
+  if (checkForWin()) {
+    return endGame(`Player ${currPlayer} won!`);
+  }
+
+  // check for tie
+  if (board.every((row) => row.every((cell) => cell))) {
+    return endGame("Tie!");
+  }
+
+  // switch players
+  currPlayer = currPlayer === 1 ? 2 : 1;
+}
+>>>>>>> 24f33cdd4036c5c95f726ee14ea2e9c198750e3f
 
 //   for (let x = 0; x < WIDTH; x++) {
 //     const headCell = document.createElement("td");
@@ -197,6 +251,7 @@ new Game(6, 7); // assuming constructor takes height, width
 //     top.append(headCell);
 //   }
 
+<<<<<<< HEAD
 //   board.append(top);
 
 //   // make main part of board
@@ -326,6 +381,44 @@ new Game(6, 7); // assuming constructor takes height, width
 //     }
 //   }
 // }
+=======
+  for (let y = 0; y < HEIGHT; y++) {
+    for (let x = 0; x < WIDTH; x++) {
+      // get "check list" of 4 cells (starting here) for each of the different
+      // ways to win
+      const horiz = [
+        [y, x],
+        [y, x + 1],
+        [y, x + 2],
+        [y, x + 3],
+      ];
+      const vert = [
+        [y, x],
+        [y + 1, x],
+        [y + 2, x],
+        [y + 3, x],
+      ];
+      const diagDR = [
+        [y, x],
+        [y + 1, x + 1],
+        [y + 2, x + 2],
+        [y + 3, x + 3],
+      ];
+      const diagDL = [
+        [y, x],
+        [y + 1, x - 1],
+        [y + 2, x - 2],
+        [y + 3, x - 3],
+      ];
+
+      // find winner (only checking each win-possibility as needed)
+      if (_win(horiz) || _win(vert) || _win(diagDR) || _win(diagDL)) {
+        return true;
+      }
+    }
+  }
+}
+>>>>>>> 24f33cdd4036c5c95f726ee14ea2e9c198750e3f
 
 // makeBoard();
 // makeHtmlBoard();
