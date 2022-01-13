@@ -6,16 +6,18 @@
   </head>
 
   <body>
-    <form id="form">
-      <input
-        id="searchTerm"
-        type="text"
-        placeholder="Find your favorite GIFs!"
-      />
-      <button type="submit">Submit</button>
+    <div class="container">
+      <form id="form" class="row">
+        <input
+          id="searchTerm"
+          type="text"
+          placeholder="Find your favorite GIFs!"
+        />
+        <input type="submit" class="btn btn-secondary" value="Search Giphy!" />
+      </form>
       <button id="delete">Delete</button>
-    </form>
-    <div id="gif-container" class="container"></div>
+      <div id="gif-container" class="row"></div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
