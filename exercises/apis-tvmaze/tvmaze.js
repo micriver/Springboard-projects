@@ -2,10 +2,9 @@
  *     { id, name, summary, episodesUrl }
  */
 
-
 /** Search Shows
  *    - given a search term, search for tv shows that
- *      match that query.  The function is async show it
+ *      match that query.  The function is async- it
  *       will be returning a promise.
  *
  *   - Returns an array of objects. Each object should include
@@ -19,22 +18,24 @@
  */
 async function searchShows(query) {
   // TODO: Make an ajax request to the searchShows api.  Remove
-  // hard coded data.
+  // hard coded data. Make sure you're traversing the returned json so that each object (each show) has the four pieces of information extrapolated
 
   return [
     {
       id: 1767,
       name: "The Bletchley Circle",
-      summary: "<p><b>The Bletchley Circle</b> follows the journey of four ordinary women with extraordinary skills that helped to end World War II.</p><p>Set in 1952, Susan, Millie, Lucy and Jean have returned to their normal lives, modestly setting aside the part they played in producing crucial intelligence, which helped the Allies to victory and shortened the war. When Susan discovers a hidden code behind an unsolved murder she is met by skepticism from the police. She quickly realises she can only begin to crack the murders and bring the culprit to justice with her former friends.</p>",
-      image: "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg"
-    }
-  ]
+      summary:
+        "<p><b>The Bletchley Circle</b> follows the journey of four ordinary women with extraordinary skills that helped to end World War II.</p><p>Set in 1952, Susan, Millie, Lucy and Jean have returned to their normal lives, modestly setting aside the part they played in producing crucial intelligence, which helped the Allies to victory and shortened the war. When Susan discovers a hidden code behind an unsolved murder she is met by skepticism from the police. She quickly realises she can only begin to crack the murders and bring the culprit to justice with her former friends.</p>",
+      image:
+        "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg",
+    },
+  ];
 }
-
-
 
 /** Populate shows list:
  *     - given list of shows, add shows to DOM
+ *      - it recieves an array of objects (shows), loops through them in a for loop and creates div cards of each on the DOM
+ *      - each card is appended to the div in the dom with the id shows-list inside the for loop
  */
 
 function populateShows(shows) {
@@ -51,31 +52,35 @@ function populateShows(shows) {
            </div>
          </div>
        </div>
-      `);
+      `
+    );
 
     $showsList.append($item);
   }
 }
-
 
 /** Handle search form submission:
  *    - hide episodes area
  *    - get list of matching shows and show in shows list
  */
 
-$("#search-form").on("submit", async function handleSearch (evt) {
+$("#search-form").on("submit", async function handleSearch(evt) {
   evt.preventDefault();
 
+  // make variable from search query
   let query = $("#search-query").val();
+  // search query check
   if (!query) return;
 
+  // if there are episodes already, hide them
   $("#episodes-area").hide();
 
+  // populate an array of show objects from the api
   let shows = await searchShows(query);
 
+  // show them all on the DOM
   populateShows(shows);
 });
-
 
 /** Given a show ID, return list of episodes:
  *      { id, name, season, number }
@@ -85,6 +90,5 @@ async function getEpisodes(id) {
   // TODO: get episodes from tvmaze
   //       you can get this by making GET request to
   //       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
-
   // TODO: return array-of-episode-info, as described in docstring above
 }
