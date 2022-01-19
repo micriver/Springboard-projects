@@ -16,20 +16,30 @@
         image: <an image from the show data, or a default imege if no image exists, (image isn't needed until later)>
       }
  */
+
+const MISSING_IMAGE_URL = "http://tinyurl.com/tv-missing";
+
 async function searchShows(query) {
   // TODO: Make an ajax request to the searchShows api.  Remove
   // hard coded data. Make sure you're traversing the returned json so that each object (each show) has the four pieces of information extrapolated
-
-  return [
-    {
-      id: 1767,
-      name: "The Bletchley Circle",
-      summary:
-        "<p><b>The Bletchley Circle</b> follows the journey of four ordinary women with extraordinary skills that helped to end World War II.</p><p>Set in 1952, Susan, Millie, Lucy and Jean have returned to their normal lives, modestly setting aside the part they played in producing crucial intelligence, which helped the Allies to victory and shortened the war. When Susan discovers a hidden code behind an unsolved murder she is met by skepticism from the police. She quickly realises she can only begin to crack the murders and bring the culprit to justice with her former friends.</p>",
-      image:
-        "http://static.tvmaze.com/uploads/images/medium_portrait/147/369403.jpg",
-    },
-  ];
+  let showArray = [];
+  try {
+    const { data } = await axios.get(
+      `https://api.tvmaze.com/search/shows?q=${query}`
+    );
+    for (show of data) {
+      let obj = {
+        id: show.show.id,
+        name: show.show.name,
+        summary: show.show.summary,
+        image: show.show.image ? show.show.image.original : MISSING_IMAGE_URL, // missing image check
+      };
+      showArray.push(obj);
+    }
+  } catch (error) {
+    console.log("This is the error: ", error);
+  }
+  return showArray;
 }
 
 /** Populate shows list:
@@ -46,6 +56,29 @@ function populateShows(shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
+          <img class="card-img-top" src="${show.image}">
+           <div class="card-body">
+             <h5 class="card-title">${show.name}</h5>
+             <p class="card-text">${show.summary}</p>
+           </div>
+         </div>
+       </div>
+      `
+    );
+
+    $showsList.append($item);
+  }
+}
+
+function populateEpisodes(episodes) {
+  const $episodes = $("episodes-area");
+  $episodes.empty();
+
+  for (let show of shows) {
+    let $item = $(
+      `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
+         <div class="card" data-show-id="${show.id}">
+          <img class="card-img-top" src="${show.image}">
            <div class="card-body">
              <h5 class="card-title">${show.name}</h5>
              <p class="card-text">${show.summary}</p>
@@ -91,4 +124,26 @@ async function getEpisodes(id) {
   //       you can get this by making GET request to
   //       http://api.tvmaze.com/shows/SHOW-ID-HERE/episodes
   // TODO: return array-of-episode-info, as described in docstring above
+  const episodes = [];
+  try {
+    const { data } = await axios.get(
+      // `https://api.tvmaze.com/shows/${id}/episodes`
+      `https://api.tvmaze.com/shows/5/episodes`
+    );
+    // console.log(data[0].id); // data is an array of episode objects with episode information
+    for (episode of data) {
+      let episodeObj = {
+        id: episode.id,
+        name: episode.name,
+        season: episode.season,
+        number: episode.number,
+        // number: episode.number ? show.show.image.original : MISSING_IMAGE_URL, // missing image check
+      };
+      console.log(episodeObj);
+      episodes.push(episodeObj);
+    }
+  } catch (error) {
+    console.log("This is the error: ", error);
+  }
+  return episodes;
 }
