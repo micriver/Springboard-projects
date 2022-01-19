@@ -71,24 +71,15 @@ function populateShows(shows) {
 }
 
 function populateEpisodes(episodes) {
-  const $episodes = $("episodes-area");
-  $episodes.empty();
+  const $episodesList = $("episodes-list");
+  $episodesList.empty();
 
-  for (let show of shows) {
+  for (let episode of episodes) {
     let $item = $(
-      `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
-         <div class="card" data-show-id="${show.id}">
-          <img class="card-img-top" src="${show.image}">
-           <div class="card-body">
-             <h5 class="card-title">${show.name}</h5>
-             <p class="card-text">${show.summary}</p>
-           </div>
-         </div>
-       </div>
-      `
+      `<li>${episode.name} (season ${episode.season}, number ${episode.number})</li>`
     );
 
-    $showsList.append($item);
+    $episodesList.append($item);
   }
 }
 
@@ -113,6 +104,7 @@ $("#search-form").on("submit", async function handleSearch(evt) {
 
   // show them all on the DOM
   populateShows(shows);
+  console.log("this is the shows objects: ", shows); // how and where should I pull the show's id data to
 });
 
 /** Given a show ID, return list of episodes:
@@ -128,7 +120,7 @@ async function getEpisodes(id) {
   try {
     const { data } = await axios.get(
       // `https://api.tvmaze.com/shows/${id}/episodes`
-      `https://api.tvmaze.com/shows/5/episodes`
+      `https://api.tvmaze.com/shows/5/episodes` // placeholder show
     );
     // console.log(data[0].id); // data is an array of episode objects with episode information
     for (episode of data) {
