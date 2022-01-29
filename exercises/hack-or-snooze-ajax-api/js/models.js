@@ -86,36 +86,18 @@ class StoryList {
 
   static newStoryData = {
     title: "Buy Bitcoin",
-    author: "Mike",
+    author: "Jobe",
     url: "https://bitcoin.org/en/",
   };
 
-  // NOTE: worked after changing addStory to static so that I could call the function outside of the class
+  // NOTE: "undefined" errors went away after changing addStory to static so that I could call the function outside of the class
   static async addStory(currentUser, { title, author, url }) {
-    // UNIMPLEMENTED: complete this function!
-    // [✓] Adds story data to API
-    const res = await axios
-      .post(`${BASE_URL}/stories`, {
-        token: currentUser.loginToken,
-        story: { title, author, url },
-      })
-      .then(function (response) {
-        console.log(response.data.story);
-      });
-    // [✓] makes a Story instance
-    // {
-    //   "story": {
-    //     "author": "Mike",
-    //     "createdAt": "2022-01-28T20:54:58.222Z",
-    //     "storyId": "1a67759a-7ca1-49b0-862d-b8f07db8c246",
-    //     "title": "Test",
-    //     "updatedAt": "2022-01-28T20:54:58.222Z",
-    //     "url": "https://bitcoin.org/en/",
-    //     "username": "micriver"
-    //   }
-    // }
-    const storyToAdd = new Story(response.data.story);
-    // [ ] adds it to story list
+    const res = await axios.post(`${BASE_URL}/stories`, {
+      token: currentUser.loginToken,
+      story: { title, author, url },
+    });
+    const storyToAdd = await new Story(res.data.story);
+    storyList.push(storyToAdd);
   }
 }
 // let newStory = StoryList.addStory(currentUser, {
