@@ -77,36 +77,31 @@ class StoryList {
     return new StoryList(stories);
   }
 
-  /** Adds story data to API, makes a Story instance, adds it to story list.
+  /** [✓] Adds story data to API, [✓] makes a Story instance, [✓] adds it to story list.
    * - user - the current instance of User who will post the story
    * - obj of {title, author, url}
    *
    * Returns the new Story instance
    */
 
-  static newStoryData = {
-    title: "Buy Bitcoin",
-    author: "Jobe",
-    url: "https://bitcoin.org/en/",
-  };
+  // test data
+  // static newStoryData = {
+  //   title: "Buy Bitcoin",
+  //   author: "Jobe",
+  //   url: "https://bitcoin.org/en/",
+  // };
 
-  // NOTE: "undefined" errors went away after changing addStory to static so that I could call the function outside of the class
+  // NOTE: "undefined" errors went away after changing addStory to static so that I could call the method outside of the class
   static async addStory(currentUser, { title, author, url }) {
     const res = await axios.post(`${BASE_URL}/stories`, {
       token: currentUser.loginToken,
       story: { title, author, url },
     });
     const storyToAdd = await new Story(res.data.story);
-    storyList.push(storyToAdd);
+    storyList.stories.push(storyToAdd); // object with an array of story objects
+    return storyToAdd;
   }
 }
-// let newStory = StoryList.addStory(currentUser, {
-//   title: "Test",
-//   author: "Me",
-//   url: "http://meow.com",
-// });
-
-// console.log(newStory instanceof Story);
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
