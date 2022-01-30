@@ -4,8 +4,15 @@
  * Handling navbar clicks and updating navbar
  */
 
-/** Show main list of all stories when click site name */
+/** Show submit new story page after click on "submit" */
+function submitClick(evt) {
+  hidePageComponents();
+  $newStoryForm.show();
+}
 
+$navSubmit.on("click", submitClick);
+
+/** Show stories on page */
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
@@ -30,7 +37,7 @@ $navLogin.on("click", navLoginClick);
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
-  $navLogin.hide();
-  $navLogOut.show();
-  $navUserProfile.text(`${currentUser.username}`).show();
+  $navLogin.hide(); // hide login/register button
+  $navLogOut.show(); // show (logout) button
+  $navUserProfile.text(`${currentUser.username}`).show(); // shows username using string literal
 }

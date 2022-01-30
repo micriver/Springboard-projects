@@ -36,6 +36,10 @@
       <div class="navbar-brand">
         <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
       </div>
+      <!-- add css to main nav links for spacing -->
+      <div class="main-nav-links">
+        <a class="nav-link" href="#" id="nav-submit">submit</a>
+      </div>
       <div class="nav-right">
         <a class="nav-link" href="#" id="nav-login">login/signup</a>
         <a class="nav-link" href="#" id="nav-user-profile"></a>
@@ -54,6 +58,33 @@
 
     <!-- Login and signup forms -->
     <section class="account-forms-container container">
+      <!-- submit new story form -->
+      <form action="#" id="new-story-form" class="account-form hidden">
+        <h4>Add a Story</h4>
+        <div class="story-title-input">
+          <label for="story-title">Story Title</label>
+          <input id="story-title" type="text" autofocus required />
+        </div>
+        <div class="story-author-input">
+          <label for="story-author-input">Story Author</label>
+          <input
+            id="story-author-input"
+            type="text"
+            autocomplete="current-password"
+          />
+        </div>
+        <div class="story-url-input">
+          <label for="story-url-input">Story URL</label>
+          <input
+            id="story-url-input"
+            type="url"
+            autocomplete="https://bitcoin.org/en/"
+            required
+          />
+        </div>
+        <button type="submit">Add story</button>
+        <hr />
+      </form>
       <!-- Login form -->
       <form
         action="#"

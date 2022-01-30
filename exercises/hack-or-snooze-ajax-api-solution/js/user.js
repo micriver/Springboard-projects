@@ -4,31 +4,6 @@
 let currentUser;
 
 /******************************************************************************
- * User new story submission
- */
-
-/** Handle story form submission. If story submission ok, adds story to the story list */
-
-async function submitNewStory(evt) {
-  console.debug("new story", evt);
-  evt.preventDefault();
-
-  // grab the values from the new story submission form
-  const newStoryTitle = $("#story-title").val();
-  const newStoryAuthor = $("#story-author-input").val();
-  const newStoryUrl = $("#story-url-input").val();
-
-  $newStoryForm.trigger("reset"); // NOTE: reset the form to its original state
-
-  newStorySubmission(newStoryTitle, newStoryAuthor, newStoryUrl);
-  storyList = await StoryList.getStories();
-  hidePageComponents();
-  getAndShowStoriesOnStart();
-}
-
-$newStoryForm.on("submit", submitNewStory);
-
-/******************************************************************************
  * User login/signup/login
  */
 
@@ -104,7 +79,7 @@ async function checkForRememberedUser() {
   if (!token || !username) return false;
 
   // try to log in with these credentials (will be null if login failed)
-  currentUser = await User.loginViaStoredCredentials(token, username); // ****User is not defined
+  currentUser = await User.loginViaStoredCredentials(token, username);
 }
 
 /** Sync current user information to localStorage.
@@ -122,7 +97,7 @@ function saveUserCredentialsInLocalStorage() {
 }
 
 /******************************************************************************
- * General UI stuff about users
+ * General UI stuff about users & profiles
  */
 
 /** When a user signs up or registers, we want to set up the UI for them:
@@ -132,10 +107,25 @@ function saveUserCredentialsInLocalStorage() {
  * - generate the user profile part of the page
  */
 
-function updateUIOnUserLogin() {
+async function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
+  hidePageComponents();
+
+  // re-display stories (so that "favorite" stars can appear)
+  putStoriesOnPage();
   $allStoriesList.show();
 
   updateNavOnLogin();
+  generateUserProfile();
+}
+
+/** Show a "user profile" part of page built from the current user's info. */
+
+function generateUserProfile() {
+  console.debug("generateUserProfile");
+
+  $("#profile-name").text(currentUser.name);
+  $("#profile-username").text(currentUser.username);
+  $("#profile-account-date").text(currentUser.createdAt.slice(0, 10));
 }

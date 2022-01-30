@@ -3,6 +3,15 @@
 // This is the global list of the stories, an instance of StoryList
 let storyList;
 
+// [✓] called when users submit the form.
+// [✓] get the data from the form
+// [ ] call the .addStory method you wrote
+// [ ] and then put that new story on the page.
+function newStorySubmission(title, author, url) {
+  console.debug("newStorysubmitted!");
+  StoryList.addStory(currentUser, { title, author, url });
+}
+
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
