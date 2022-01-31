@@ -33,7 +33,7 @@ class Story {
 
   getHostName() {
     // UNIMPLEMENTED: complete this function!
-    return "hostname.com";
+    return `${this.url}`;
   }
 }
 
@@ -127,6 +127,21 @@ class User {
 
     // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
+  }
+
+  // Allow logged in users to “favorite” and “un-favorite” a story.
+  // [ ] These stories should remain favorited when the page refreshes.
+  // [ ] Allow logged in users to see a separate list of favorited stories.
+  // [ ] The methods for adding and removing favorite status on a story should be defined in the User class.
+
+  static async addFavoriteStory(storyId) {
+    // send post request adding story to favorites list tied to user
+    const res = await axios.post(
+      `${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`,
+      {
+        token: currentUser.loginToken,
+      }
+    );
   }
 
   /** Register new user in API, make User instance & return it.

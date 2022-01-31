@@ -4,6 +4,18 @@
 let currentUser;
 
 /******************************************************************************
+ * User favorite story addition
+ */
+
+/** User favorite story addition. Add and remove favorite stories from list */
+
+async function toggleFavorite() {
+  if (currentUser) {
+    console.log("user is logged in and ready to favorite!");
+  }
+}
+
+/******************************************************************************
  * User new story submission
  */
 

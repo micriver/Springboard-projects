@@ -37,6 +37,8 @@ $navLogin.on("click", navLoginClick);
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
+  $loginForm.hide();
+  $signupForm.hide();
   $navLogin.hide(); // hide login/register button
   $navLogOut.show(); // show (logout) button
   $navUserProfile.text(`${currentUser.username}`).show(); // shows username using string literal

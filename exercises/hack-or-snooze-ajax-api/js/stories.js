@@ -5,8 +5,8 @@ let storyList;
 
 // [✓] called when users submit the form.
 // [✓] get the data from the form
-// [ ] call the .addStory method you wrote
-// [ ] and then put that new story on the page.
+// [✓] call the .addStory method you wrote
+// [✓] and then put that new story on the page.
 function newStorySubmission(title, author, url) {
   console.debug("newStorysubmitted!");
   StoryList.addStory(currentUser, { title, author, url });
@@ -31,6 +31,14 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
+  currentUser
+    ? console.log("is logged in!")
+    : console.log("no user logged in ");
+  // if (currentUser) {
+  //   console.log("logged in!");
+  // } else {
+  //   console.log("no user logged in");
+  // }
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
