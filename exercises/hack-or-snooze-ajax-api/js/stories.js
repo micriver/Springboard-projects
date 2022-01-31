@@ -31,25 +31,20 @@ async function getAndShowStoriesOnStart() {
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
-  currentUser
-    ? console.log("is logged in!")
-    : console.log("no user logged in ");
-  // if (currentUser) {
-  //   console.log("logged in!");
-  // } else {
-  //   console.log("no user logged in");
-  // }
   const hostName = story.getHostName();
-  return $(`
+  return currentUser
+    ? $(`
       <li id="${story.storyId}">
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
         <small class="story-hostname">(${hostName})</small>
+        <a id="favorite-button" class="story-link" href="" style="font-size:13px">&#9734</a >
         <small class="story-author">by ${story.author}</small>
         <small class="story-user">posted by ${story.username}</small>
       </li>
-    `);
+    `)
+    : console.log("no user logged in ");
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
