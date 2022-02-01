@@ -141,8 +141,6 @@ class User {
   }
 
   static async removeFavorite(story) {
-    console.debug("remove favorite");
-    console.log("favs list before: ", currentUser.favorites);
     const options = {
       method: "DELETE",
       url: `https://hack-or-snooze-v3.herokuapp.com/users/${currentUser.username}/favorites/${story.storyId}`,
@@ -160,12 +158,10 @@ class User {
     for (let i = 0; i < currentUser.favorites.length; i++) {
       // for (const s of currentUser.favorites) {
       if (currentUser.favorites[i].storyId === story.storyId) {
-        console.log("you found the favorite to be removed!");
         // console.log(s);
         currentUser.favorites.splice(i, 1);
       }
     }
-    console.log("favs list after: ", currentUser.favorites);
   }
 
   /** Register new user in API, make User instance & return it.
