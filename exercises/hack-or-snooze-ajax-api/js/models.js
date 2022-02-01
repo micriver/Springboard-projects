@@ -129,19 +129,49 @@ class User {
     this.loginToken = token;
   }
 
-  // Allow logged in users to “favorite” and “un-favorite” a story.
-  // [ ] These stories should remain favorited when the page refreshes.
-  // [ ] Allow logged in users to see a separate list of favorited stories.
-  // [ ] The methods for adding and removing favorite status on a story should be defined in the User class.
-
-  static async addFavoriteStory(storyId) {
-    // send post request adding story to favorites list tied to user
+  static async addFavorite(story) {
     const res = await axios.post(
-      `${BASE_URL}/users/${currentUser.username}/favorites/${storyId}`,
+      `${BASE_URL}/users/${currentUser.username}/favorites/${story.storyId}`,
       {
         token: currentUser.loginToken,
       }
     );
+    currentUser.favorites.push(story); // push onto favorites list
+    console.log(currentUser.favorites);
+  }
+
+  static async removeFavorite(story) {
+    console.debug("remove favorite");
+    // remove from database
+    // const options = {
+    //   method: "DELETE",
+    //   url: `https://hack-or-snooze-v3.herokuapp.com/users/${currentUser.username}/favorites/${story.storyId}`,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Authorization: "Basic Og==",
+    //   },
+    //   data: {
+    //     token: currentUser.loginToken,
+    //   },
+    // };
+
+    // const res = await axios.request(options);
+    // RETURNING -1 BECAUSE IT IS LOOKING THROUGH STORY OBJECTS AND NOT STORY IDS
+    const index = currentUser.favorites.indexOf(story.storyId);
+    for (s of favorites) {
+      if (s.storyId === story.storyId) {
+      }
+    }
+    console.log("story index = ", index);
+    console.log(currentUser.favorites);
+    // if (index) {
+    //   currentUser.favorites.splice(index, 1);
+    //   console.log(
+    //     "story has been removed from favorites: ",
+    //     currentUser.favorites
+    //   );
+    // }
+    // console.log(currentUser.favorites);
   }
 
   /** Register new user in API, make User instance & return it.
@@ -227,5 +257,11 @@ class User {
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
+  }
+
+  /** Return true/false if given Story instance is a favorite of this user. */
+
+  isFavorite(story) {
+    return currentUser.favorites.some((s) => s.storyId === story.storyId);
   }
 }

@@ -9,12 +9,12 @@ let currentUser;
 
 /** User favorite story addition. Add and remove favorite stories from list */
 
-async function toggleFavorite() {
-  if (currentUser) {
-    console.log("user is logged in and ready to favorite!");
-  }
+async function addFavorite() {
+  // console.debug("you're clicking on the button!", evt);
+  console.log("you're clicking on the favorite button!");
 }
 
+// $favorite.on("click", console.log("click!"));
 /******************************************************************************
  * User new story submission
  */
@@ -146,6 +146,7 @@ function saveUserCredentialsInLocalStorage() {
 
 function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
+  getAndShowStoriesOnStart();
 
   $allStoriesList.show();
 
