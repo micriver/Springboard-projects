@@ -42,7 +42,6 @@ function generateStoryMarkup(story) {
        </li>
      `);
 }
-//  <a class="hidden favorite-button story-link" href="#" style="font-size:13px">&#9734</a >
 
 /** Make favorite/not-favorite star for story in UI on login */
 

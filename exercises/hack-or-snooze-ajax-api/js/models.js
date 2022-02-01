@@ -142,36 +142,30 @@ class User {
 
   static async removeFavorite(story) {
     console.debug("remove favorite");
-    // remove from database
-    // const options = {
-    //   method: "DELETE",
-    //   url: `https://hack-or-snooze-v3.herokuapp.com/users/${currentUser.username}/favorites/${story.storyId}`,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Authorization: "Basic Og==",
-    //   },
-    //   data: {
-    //     token: currentUser.loginToken,
-    //   },
-    // };
+    console.log("favs list before: ", currentUser.favorites);
+    const options = {
+      method: "DELETE",
+      url: `https://hack-or-snooze-v3.herokuapp.com/users/${currentUser.username}/favorites/${story.storyId}`,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic Og==",
+      },
+      data: {
+        token: currentUser.loginToken,
+      },
+    };
 
-    // const res = await axios.request(options);
-    // RETURNING -1 BECAUSE IT IS LOOKING THROUGH STORY OBJECTS AND NOT STORY IDS
-    const index = currentUser.favorites.indexOf(story.storyId);
-    for (s of favorites) {
-      if (s.storyId === story.storyId) {
+    const res = await axios.request(options);
+    // if given story id matches any of the story id's in the favorites list, remove it
+    for (let i = 0; i < currentUser.favorites.length; i++) {
+      // for (const s of currentUser.favorites) {
+      if (currentUser.favorites[i].storyId === story.storyId) {
+        console.log("you found the favorite to be removed!");
+        // console.log(s);
+        currentUser.favorites.splice(i, 1);
       }
     }
-    console.log("story index = ", index);
-    console.log(currentUser.favorites);
-    // if (index) {
-    //   currentUser.favorites.splice(index, 1);
-    //   console.log(
-    //     "story has been removed from favorites: ",
-    //     currentUser.favorites
-    //   );
-    // }
-    // console.log(currentUser.favorites);
+    console.log("favs list after: ", currentUser.favorites);
   }
 
   /** Register new user in API, make User instance & return it.
