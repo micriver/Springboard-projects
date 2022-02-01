@@ -164,6 +164,21 @@ class User {
     }
   }
 
+  static async deleteStory(story) {
+    const options = {
+      method: "DELETE",
+      url: `https://hack-or-snooze-v3.herokuapp.com/stories/${story.storyId}`,
+      headers: { "Content-Type": "application/json" },
+      data: {
+        token: `${currentUser.loginToken}`,
+      },
+    };
+
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+    });
+  }
+
   /** Register new user in API, make User instance & return it.
    *
    * - username: a new username

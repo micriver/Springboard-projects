@@ -12,6 +12,21 @@ function submitClick(evt) {
 
 $navSubmit.on("click", submitClick);
 
+/** Show list of favorited stories*/
+function favoritesClick(evt) {
+  if (currentUser.favorites.length >= 1) {
+    putFavoritesOnPage();
+  } else {
+    console.debug("user has no favorites!");
+    hidePageComponents();
+    $(".stories-container").append(
+      "<h2 class='favorites-message' >You don't have any favorite stories yet!</h2>"
+    );
+  }
+}
+
+$navFavorites.on("click", favoritesClick);
+
 /** Show stories on page */
 function navAllStories(evt) {
   console.debug("navAllStories", evt);

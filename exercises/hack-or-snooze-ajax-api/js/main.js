@@ -17,9 +17,8 @@ const $navLogin = $("#nav-login");
 const $navSubmit = $("#nav-submit");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
-// 3A addition
-const $favorite = $(".favorite-button");
-// const favorites = document.getElementsByClassName("favorite-button");
+const $navFavorites = $("#nav-favorites");
+const $favoritesPage = "#favorites-page";
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
