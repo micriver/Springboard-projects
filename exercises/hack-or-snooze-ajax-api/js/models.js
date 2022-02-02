@@ -84,21 +84,13 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  // TEST DATA
-  // static newStoryData = {
-  //   title: "Buy Bitcoin",
-  //   author: "Jobe",
-  //   url: "https://bitcoin.org/en/",
-  // };
-
-  // NOTE: "undefined" errors went away after changing addStory to static so that I could call the method outside of the class
   static async addStory(currentUser, { title, author, url }) {
     const res = await axios.post(`${BASE_URL}/stories`, {
       token: currentUser.loginToken,
       story: { title, author, url },
     });
     const storyToAdd = await new Story(res.data.story);
-    storyList.stories.push(storyToAdd); // object with an array of story objects
+    storyList.stories.push(storyToAdd);
     return storyToAdd;
   }
 }
@@ -154,11 +146,8 @@ class User {
     };
 
     const res = await axios.request(options);
-    // if given story id matches any of the story id's in the favorites list, remove it
     for (let i = 0; i < currentUser.favorites.length; i++) {
-      // for (const s of currentUser.favorites) {
       if (currentUser.favorites[i].storyId === story.storyId) {
-        // console.log(s);
         currentUser.favorites.splice(i, 1);
       }
     }
@@ -174,9 +163,16 @@ class User {
       },
     };
 
-    axios.request(options).then(function (response) {
-      console.log(response.data);
-    });
+    axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        return true;
+      })
+      .catch(function (error) {
+        alert("You didn't submit that story!");
+        return false;
+      });
   }
 
   /** Register new user in API, make User instance & return it.
@@ -263,8 +259,6 @@ class User {
       return null;
     }
   }
-
-  /** Return true/false if given Story instance is a favorite of this user. */
 
   isFavorite(story) {
     return currentUser.favorites.some((s) => s.storyId === story.storyId);

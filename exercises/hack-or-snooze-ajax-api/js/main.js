@@ -9,11 +9,9 @@ const $allStoriesList = $("#all-stories-list");
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
-// 2B addition
 const $newStoryForm = $("#new-story-form");
 
 const $navLogin = $("#nav-login");
-// 2B addition
 const $navSubmit = $("#nav-submit");
 const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");

@@ -7,6 +7,7 @@
 /** Show submit new story page after click on "submit" */
 function submitClick(evt) {
   hidePageComponents();
+  $(".favorites-message").hide();
   $newStoryForm.show();
 }
 
@@ -14,7 +15,9 @@ $navSubmit.on("click", submitClick);
 
 /** Show list of favorited stories*/
 function favoritesClick(evt) {
+  hidePageComponents();
   if (currentUser.favorites.length >= 1) {
+    $(".stories-container").remove();
     putFavoritesOnPage();
   } else {
     console.debug("user has no favorites!");
@@ -56,5 +59,7 @@ function updateNavOnLogin() {
   $signupForm.hide();
   $navLogin.hide(); // hide login/register button
   $navLogOut.show(); // show (logout) button
+  $navSubmit.show();
+  $navFavorites.show();
   $navUserProfile.text(`${currentUser.username}`).show(); // shows username using string literal
 }
