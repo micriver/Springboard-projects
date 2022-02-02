@@ -38,7 +38,11 @@ function generateStoryMarkup(story) {
          <small class="story-hostname">(${hostName})</small>
          ${currentUser ? getStarHTML(story, story.username) : ""}
          <small class="story-author">by ${story.author}</small>
-         <small class="story-user">posted by ${story.username}</small>
+         <small class="story-user">posted by ${story.username}
+         ${currentUser ? getStarHTML(story, story.username) : ""}
+          <span class="trashcan">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+          </span></small>
        </li>
      `);
 }
@@ -78,30 +82,31 @@ async function toggleStoryFavorite(evt) {
   }
 }
 
+// $storiesList.on("click", ".star", toggleStoryFavorite);
+$allStoriesList.on("click", ".star", toggleStoryFavorite);
+
 async function deleteStory(evt) {
   console.debug("deleteStory");
 
   const $tgt = $(evt.target);
   const $closestLi = $tgt.closest("li");
   const storyId = $closestLi.attr("id");
-  const story = storyList.stories.find((s) => s.storyId === storyId);
+  console.log("you're about to delete this story!", storyId);
+  // const story = storyList.stories.find((s) => s.storyId === storyId);
 
-  // see if the item is already favorited (checking by presence of star)
-  if ($tgt.hasClass("fas")) {
-    // currently a favorite: remove from user's fav list and change star
-    await User.removeFavorite(story);
-    $tgt.closest("i").toggleClass("fas far");
-  } else {
-    // currently not a favorite: do the opposite
-    await User.addFavorite(story);
-    $tgt.closest("i").toggleClass("fas far");
-  }
+  // // see if the item is already favorited (checking by presence of star)
+  // if ($tgt.hasClass("fas")) {
+  //   // currently a favorite: remove from user's fav list and change star
+  //   await User.removeFavorite(story);
+  //   $tgt.closest("i").toggleClass("fas far");
+  // } else {
+  //   // currently not a favorite: do the opposite
+  //   await User.addFavorite(story);
+  //   $tgt.closest("i").toggleClass("fas far");
+  // }
 }
 
 // $("#div1").remove();
-
-// $storiesList.on("click", ".star", toggleStoryFavorite);
-$allStoriesList.on("click", ".star", toggleStoryFavorite);
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
