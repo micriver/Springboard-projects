@@ -33,13 +33,13 @@ function generateStoryMarkup(story) {
            ${story.title}
          </a>
          <small class="story-hostname">(${hostName})</small>
-         ${currentUser ? getStarHTML(story, story.username) : ""}
+         ${currentUser ? getStarHTML(story, story.username) : null}
          <small class="story-author">by ${story.author}</small>
          <small class="story-user">posted by ${story.username}
           ${
             currentUser
               ? `<span class="trashcan"><i class="fa fa-trash" aria-hidden="true"></i></span></small>`
-              : ""
+              : null // try returning "null" for things that are empty
           }
        </li>
      `);
@@ -83,7 +83,7 @@ async function deleteStory(evt) {
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find((s) => s.storyId === storyId);
   if (await User.deleteStory(story)) {
-    // console.debug("deletestory returned false");
+    debugger;
     $closestLi.remove();
   }
 }
@@ -113,5 +113,6 @@ function putFavoritesOnPage() {
     const $story = generateStoryMarkup(story);
     $allStoriesList.append($story);
   }
+  debugger;
   $allStoriesList.show();
 }

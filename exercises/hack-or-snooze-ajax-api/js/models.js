@@ -163,14 +163,15 @@ class User {
       },
     };
 
-    axios
+    return axios
       .request(options)
       .then(function (response) {
         console.log(response.data);
         return true;
       })
       .catch(function (error) {
-        alert("You didn't submit that story!");
+        // alert("You didn't submit that story!");
+        console.error(error);
         return false;
       });
   }

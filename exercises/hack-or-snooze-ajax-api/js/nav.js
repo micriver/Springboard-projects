@@ -17,14 +17,20 @@ $navSubmit.on("click", submitClick);
 function favoritesClick(evt) {
   hidePageComponents();
   if (currentUser.favorites.length >= 1) {
-    $(".stories-container").remove();
+    $(".stories-container").find("h2").remove();
     putFavoritesOnPage();
   } else {
-    console.debug("user has no favorites!");
-    hidePageComponents();
-    $(".stories-container").append(
-      "<h2 class='favorites-message' >You don't have any favorite stories yet!</h2>"
-    );
+    const existingH2 = $(".stories-container").find("h2");
+    // debugger;
+    if (existingH2 && existingH2.length > 0) {
+      return;
+    } else {
+      console.debug("user has no favorites!");
+      hidePageComponents();
+      $(".stories-container").append(
+        "<h2 class='favorites-message' >You don't have any favorite stories yet!</h2>"
+      );
+    }
   }
 }
 
