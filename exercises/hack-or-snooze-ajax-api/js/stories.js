@@ -37,7 +37,7 @@ function generateStoryMarkup(story) {
          <small class="story-author">by ${story.author}</small>
          <small class="story-user">posted by ${story.username}
           ${
-            currentUser
+            currentUser && currentUser.isOwnStory(story)
               ? `<span class="trashcan"><i class="fa fa-trash" aria-hidden="true"></i></span></small>`
               : null // try returning "null" for things that are empty
           }
