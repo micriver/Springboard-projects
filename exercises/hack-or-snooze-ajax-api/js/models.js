@@ -261,7 +261,11 @@ class User {
     }
   }
 
+  isOwnStory(story) {
+    return this.ownStories.some((s) => s.storyId === story.storyId);
+  }
+
   isFavorite(story) {
-    return currentUser.favorites.some((s) => s.storyId === story.storyId);
+    return this.favorites.some((s) => s.storyId === story.storyId);
   }
 }
